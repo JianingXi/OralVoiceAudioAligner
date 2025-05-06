@@ -21,17 +21,13 @@ def split_sentences(text: str) -> list[str]:
     parts = re.split(r'(?<=[。？！])\s*', text)
     return [p.strip() for p in parts if p.strip()]
 
-def transcribe_and_save(audio_path: str, model_size: str = "small"):
+def transcribe_and_save(audio_path: str, model) -> None:
     """
-    离线转录音频，输出简体中文，并保存到同目录 txt 文件。
+    对单个音频文件进行转写并保存为简体中文文本。
     """
-    print(f"[INFO] 加载模型 {model_size} ……")
-    model = whisper.load_model(model_size)
-
     print(f"[INFO] 转录中：{audio_path} …")
     result = model.transcribe(audio_path, language="zh", fp16=False)
 
-    # 准备输出路径：同目录、同文件名但 .txt
     dirpath = os.path.dirname(audio_path)
     basename = os.path.splitext(os.path.basename(audio_path))[0]
     out_txt = os.path.join(dirpath, basename + ".txt")
@@ -44,11 +40,27 @@ def transcribe_and_save(audio_path: str, model_size: str = "small"):
                 simple = cc.convert(sentence)
                 ts = format_time(start)
                 line = f"[{ts}] {simple}"
-                print(line)        # 控制台打印
-                f.write(line + "\n")  # 写入文件
+                print(line)
+                f.write(line + "\n")
+
     print(f"[INFO] 已保存转写结果到：{out_txt}")
 
+def batch_transcribe(folder_path: str, model_size: str = "small") -> None:
+    """
+    遍历目录中的所有音频文件并执行转写。
+    """
+    print(f"[INFO] 加载模型 {model_size} ……")
+    model = whisper.load_model(model_size)
+
+    audio_extensions = {".mp3", ".m4a", ".wav", ".flac", ".aac"}
+    for filename in os.listdir(folder_path):
+        filepath = os.path.join(folder_path, filename)
+        if os.path.isfile(filepath) and os.path.splitext(filename)[1].lower() in audio_extensions:
+            try:
+                transcribe_and_save(filepath, model)
+            except Exception as e:
+                print(f"[ERROR] 转录失败：{filename}，原因：{e}")
+
 if __name__ == "__main__":
-    # 把这里改成你的音频文件全路径
-    audio_file = r"C:\Users\xijia\Desktop\pandoc\广州医科大学(番禺校区)一期.m4a"
-    transcribe_and_save(audio_file, model_size="large-v1")  # small, large-v1
+    folder = r"G:\D20250506_研究生院科普大赛作品副本"
+    batch_transcribe(folder, model_size="large-v1")  # 可选 small, medium, large-v1 等

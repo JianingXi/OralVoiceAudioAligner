@@ -3,7 +3,7 @@ import subprocess
 
 # ———— 配置 ————
 # 直接把你的目标文件夹写在这里
-TARGET_DIR = r"C:\Users\xijia\Downloads"
+TARGET_DIR = r"G:\D20250506_研究生院科普大赛作品副本"
 
 def convert_to_mp3(input_path: str, output_path: str) -> None:
     """
