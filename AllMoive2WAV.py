@@ -33,5 +33,5 @@ def video_to_audio_recursive(input_dir, output_dir=None):
                     print(f"[ERROR] 处理失败：{video_path}，错误：{e}")
 
 if __name__ == "__main__":
-    input_folder = r"G:\D20250506_研究生院科普大赛作品副本"
+    input_folder = r"G:\作品"
     video_to_audio_recursive(input_folder)

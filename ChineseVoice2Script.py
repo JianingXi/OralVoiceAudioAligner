@@ -77,4 +77,4 @@ def batch_transcribe(folder_path: str, model_size: str = "small") -> None:
 
 if __name__ == "__main__":
     folder = r"G:\作品"
-    batch_transcribe(folder, model_size="small")
+    batch_transcribe(folder, model_size="base")

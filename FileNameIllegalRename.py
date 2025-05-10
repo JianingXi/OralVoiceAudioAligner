@@ -3,6 +3,9 @@ import re
 
 # 替换规则：将大部分特殊字符转换为下划线
 def sanitize_name(name: str) -> str:
+    # 将数字后面的点替换为下划线，但保留扩展名中的点
+    name = re.sub(r'(\d)\.', r'\1_', name)
+
     # 中文引号、标点、空格、特殊字符等统统替换成下划线
     name = re.sub(r'[“”‘’"\'`。，、；：！？·（）【】《》〈〉·—～！￥…——·|\\/\[\]{}():;<>?@#$%^&*+=\s]', '_', name)
     name = re.sub(r'[-+＋＝·．·]', '_', name)  # 再次替换一些易漏的
@@ -39,5 +42,5 @@ def rename_all_files_and_folders(root_dir: str):
                     print(f"[ERROR] 无法重命名文件夹：{old_dir_path}，原因：{e}")
 
 if __name__ == "__main__":
-    root_directory = r"G:\科普组"
+    root_directory = r"G:\作品\科创组"
     rename_all_files_and_folders(root_directory)
