@@ -42,5 +42,5 @@ def rename_all_files_and_folders(root_dir: str):
                     print(f"[ERROR] 无法重命名文件夹：{old_dir_path}，原因：{e}")
 
 if __name__ == "__main__":
-    root_directory = r"G:\作品\科创组"
+    root_directory = r"G:\作品"
     rename_all_files_and_folders(root_directory)

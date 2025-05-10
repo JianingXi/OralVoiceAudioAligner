@@ -76,5 +76,5 @@ def batch_transcribe(folder_path: str, model_size: str = "small") -> None:
     print(f"\n[SUMMARY] 共检测到音频文件 {total_files} 个，成功转写 {transcribed} 个。")
 
 if __name__ == "__main__":
-    folder = r"G:\作品"
+    folder = r"G:\作品\科普组\微视频\44科普组_视频类_陈熙炀"
     batch_transcribe(folder, model_size="base")
