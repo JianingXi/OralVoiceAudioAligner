@@ -2,7 +2,7 @@ import os
 import subprocess
 
 # 目标文件夹
-input_dir = r"C:\Users\xijia\Desktop\pandoc"
+input_dir = r"C:\MyDocument\ToDoList\D20_ToHardDisk\D20250430_本科职业生涯规划_读研、出国、找工作的具体措施"
 
 for fname in os.listdir(input_dir):
     if fname.lower().endswith(".m4a"):
